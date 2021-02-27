@@ -55,37 +55,36 @@ class Pong
 
     this.ball.vel.x = 100;
     this.ball.vel.y = 100;
+
+    let lastTime;
+    const callBack = (ms) => {
+      if (lastTime) {
+        this.update((ms - lastTime) / 1000);
+      }
+      lastTime = ms;
+      requestAnimationFrame(callBack);
+    }
+    callBack();
   }
   update(dt) {
-    ball.pos.x += ball.vel.x * dt;
-    ball.pos.y += ball.vel.y * dt;
+    this.ball.pos.x += this.ball.vel.x * dt;
+    this.ball.pos.y += this.ball.vel.y * dt;
     
-    if (ball.left < 0 || ball.right > this._canvas.width) {
-      ball.vel.x = -ball.vel.x;
+    if (this.ball.left < 0 || this.ball.right > this._canvas.width) {
+      this.ball.vel.x = -this.ball.vel.x;
     }
-    if (ball.top < 0 || ball.bottom > this._canvas.height) {
-      ball.vel.y = -ball.vel.y;
+    if (this.ball.top < 0 || this.ball.bottom > this._canvas.height) {
+      this.ball.vel.y = -this.ball.vel.y;
     }
   
     this._context.fillStyle = '#000';
     this._context.fillRect(0, 0, this._canvas.width, this._canvas.height);
     
     this._context.fillStyle = '#fff';
-    this._context.fillRect(ball.pos.x, ball.pos.y, ball.size.x, ball.size.y);
+    this._context.fillRect(this.ball.pos.x, this.ball.pos.y, this.ball.size.x, this.ball.size.y);
   }
 }
 
 const canvas = document.getElementById('pong');
 
-
-
-let lastTime;
-function callBack(ms) {
-  if (lastTime) {
-    update((ms - lastTime) / 1000);
-  }
-  lastTime = ms;
-  requestAnimationFrame(callBack);
-}
-
-callBack();
+const pong = new Pong(canvas);
