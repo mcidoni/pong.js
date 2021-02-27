@@ -42,15 +42,42 @@ class Ball extends Rect
     }
 }
 
+class Pong
+{
+  constructor(canvas)
+  {
+    this._canvas = canvas;
+    this._context = canvas.getContext('2d');
+
+    this.ball = new Ball;
+    this.ball.pos.x = 100;
+    this.ball.pos.y = 50;
+
+    this.ball.vel.x = 100;
+    this.ball.vel.y = 100;
+  }
+  update(dt) {
+    ball.pos.x += ball.vel.x * dt;
+    ball.pos.y += ball.vel.y * dt;
+    
+    if (ball.left < 0 || ball.right > this._canvas.width) {
+      ball.vel.x = -ball.vel.x;
+    }
+    if (ball.top < 0 || ball.bottom > this._canvas.height) {
+      ball.vel.y = -ball.vel.y;
+    }
+  
+    this._context.fillStyle = '#000';
+    this._context.fillRect(0, 0, this._canvas.width, this._canvas.height);
+    
+    this._context.fillStyle = '#fff';
+    this._context.fillRect(ball.pos.x, ball.pos.y, ball.size.x, ball.size.y);
+  }
+}
+
 const canvas = document.getElementById('pong');
-const context = canvas.getContext('2d');
 
-const ball = new Ball;
-ball.pos.x = 100;
-ball.pos.y = 50;
 
-ball.vel.x = 100;
-ball.vel.y = 100;
 
 let lastTime;
 function callBack(ms) {
@@ -59,24 +86,6 @@ function callBack(ms) {
   }
   lastTime = ms;
   requestAnimationFrame(callBack);
-}
-
-function update(dt) {
-  ball.pos.x += ball.vel.x * dt;
-  ball.pos.y += ball.vel.y * dt;
-  
-  if (ball.left < 0 || ball.right > canvas.width) {
-    ball.vel.x = -ball.vel.x;
-  }
-  if (ball.top < 0 || ball.bottom > canvas.height) {
-    ball.vel.y = -ball.vel.y;
-  }
-
-  context.fillStyle = '#000';
-  context.fillRect(0, 0, canvas.width, canvas.height);
-  
-  context.fillStyle = '#fff';
-  context.fillRect(ball.pos.x, ball.pos.y, ball.size.x, ball.size.y);
 }
 
 callBack();
