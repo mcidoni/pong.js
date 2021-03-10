@@ -1,25 +1,24 @@
 console.log('loaded, buddy')
-class Vec
-{
+
+class Vec {
   constructor(x = 0, y = 0)
   {
     this.x = x;
     this.y = y;
   }
-  get len()
-  {
+  
+  get len() {
     return Math.sqrt(this.x * this.x * this.y * this.y);
   }
-  set len(value) 
-  {
+
+  set len(value) {
     const fact = value / this.len;
     this.x *= fact;
     this.y *= fact;
   }
 }
 
-class Rect
-{
+class Rect {
   constructor(w, h)
   {
     this.pos = new Vec;
@@ -43,37 +42,31 @@ class Rect
   }
 }
 
-class Ball extends Rect
-{
-  constructor()
-  {
+class Ball extends Rect {
+  constructor() {
     super(10, 10);
-    this.vel = new Vec;
+    this.vel = new Vec();
     }
 }
 
-class Player extends Rect 
-{
-  constructor()
-  {
+class Player extends Rect {
+  constructor() {
     super(20, 100);
     this.score = 0;
   }
 }
 
-class Pong
-{
-  constructor(canvas)
-  {
+class Pong {
+  constructor(canvas) {
     this._canvas = canvas;
     this._context = canvas.getContext('2d');
 
-    this.ball = new Ball;
+    this.ball = new Ball();
     
 
     this.players = [
-      new Player,
-      new Player,
+      new Player(),
+      new Player(),
     ];
 
     this.players[0].pos.x = 40;
@@ -126,8 +119,7 @@ class Pong
     this.reset();
   }
 
-  collide(player, ball)
-  {
+  collide(player, ball) {
     if (player.left < ball.right && player.right > ball.left && player.top < ball.bottom && player.bottom > ball.top) {
       const len = ball.vel.len;
       ball.vel.x = -ball.vel.x;
@@ -136,8 +128,7 @@ class Pong
     }
   }
 
-  draw() 
-  {
+  draw() {
     this._context.fillStyle = '#000';
     this._context.fillRect(0, 0,this._canvas.width, this._canvas.height);
     this.drawRect(this.ball);
@@ -145,14 +136,12 @@ class Pong
     this.drawScore();
   }
 
-  drawRect(rect)
-  {
+  drawRect(rect) {
     this._context.fillStyle = '#fff';
     this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
   }
 
-  drawScore()
-  {
+  drawScore() {
     const align = this._canvas.width / 3;
     const char_w = this.char_pixel * 4;
     this.players.forEach((player, index) => {
@@ -167,8 +156,7 @@ class Pong
     });
   }
 
-  reset() 
-  {
+  reset() {
     this.ball.pos.x = this._canvas.width / 2;
     this.ball.pos.y = this._canvas.height /2;
 
@@ -176,8 +164,7 @@ class Pong
     this.ball.vel.y = 0;
   }
 
-  start()
-  {
+  start() {
     if (this.ball.vel.x === 0 && this.ball.vel.y === 0) {
       this.ball.vel.x = 300 * (Math.random() > .5 ? 1 : -1);
       this.ball.vel.y = 300 * (Math.random() * 2 - 1);
