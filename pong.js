@@ -147,7 +147,7 @@ class Pong {
     this.players.forEach((player, index) => {
       const chars = player.score.toString().split('');
       const offset = align *
-                    (index + 1) - (char_w * chars.length / 2) *
+                    (index + 1) - (char_w * chars.length / 2) +
                     this.char_pixel / 2;
       chars.forEach((char,pos) => {
         this._context.drawImage(this.chars[char|0],
