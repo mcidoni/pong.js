@@ -5,21 +5,41 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pong.js</title>
+  <div>
+    <h1 class="pong">pong.js</h1>
+    <p class="info">Released in 1972, Pong was one of the first widely successful arcade games that helped revolutionize the video game industry. This is a simple recreation of it, utilizing HTML Canvas and JavaScript!</p>
+  </div>
   <style>
     body {
       display: flex;
       align-items: center;
       margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     canvas {
+      margin-right: 70px;
+      margin-top: 100px;
       border: solid 1px white;
-      align-content: center;
+    }
+
+    .pong {
+      margin-left: 50px;
+      font-family:Arial, Helvetica, sans-serif;
+      font-weight: bolder;
+      font-style: italic;
+      font-size: 70px;
+    }
+
+    .info {
+      margin-left: 50px;
+      margin-right: 50px;
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
-  <canvas id="pong" width="600" height="400"></canvas>
+  <canvas id="pong" width="700" height="500"></canvas>
   <script src="./pong.js"></script>
 </body>
 </html>
